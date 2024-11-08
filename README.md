@@ -1,4 +1,4 @@
-# Sound Meter: Noise Pollution Measurement App
+# Noise Pollution Measurement App
 
 SoundMeter is a user-friendly app that utilizes your device’s microphone to detect and quantify surrounding sound levels. 
 
