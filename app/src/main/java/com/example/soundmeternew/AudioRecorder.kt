@@ -23,6 +23,7 @@ class AudioRecorder(
         val fileName = filePath ?: "recorded_audio_${System.currentTimeMillis()}.wav"
         audioFile = File(context.filesDir, fileName)
 
+
         mediaRecorder = MediaRecorder(context).apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
