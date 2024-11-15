@@ -39,6 +39,8 @@ import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
+    // Added this useless comment to push a branch change.
+
     private lateinit var audioRecorder: AudioRecorder
     private lateinit var recordingDao: DAO.RecordingDao
 
