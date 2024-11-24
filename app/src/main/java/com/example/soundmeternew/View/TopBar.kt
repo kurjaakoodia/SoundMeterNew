@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.toColorInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -39,7 +40,7 @@ fun MainBar() {
                     Text("Sound Meter")
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(rgb(154, 9, 14)),
+                    containerColor = Color("#E6F4CD".toColorInt()),
 
                 )
             )
