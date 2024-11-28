@@ -1,5 +1,6 @@
 package com.example.soundmeternew
 
+<<<<<<< HEAD
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -163,11 +164,16 @@ import kotlinx.coroutines.launch
 //    }
 //}
 
+=======
+>>>>>>> ca2d33dfca7db3dd37d36b3f9d16714b616187db
 import android.graphics.Color.rgb
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -201,27 +207,49 @@ import com.example.soundmeternew.ui.theme.SoundMeterNewTheme
 import com.example.soundmeternew.ui.theme.Red40
 
 class MainActivity : ComponentActivity() {
+
+    private lateinit var audio: Audio
+    private var isRecording = false
+
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Initialize the Audio class
+        audio = Audio(this)
+audio.initialize()
         enableEdgeToEdge()
         setContent {
             SoundMeterNewTheme {
+                val audioViewModel = AudioViewModel(audio)
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MyBottomAppBar()
+                    MyBottomAppBar(audioViewModel)
                 }
             }
         }
     }
-}
+//    private fun stopRecording() {
+//        audio.stopRecording()
+//        Log.i("TAG", "stopRecording:Happened ")
+//        isRecording = false
+//    }
+    override fun onDestroy() {
+        super.onDestroy()
+        audio.release()
+    }
+
+                }
+
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyBottomAppBar() {
+fun MyBottomAppBar(audioViewModel: AudioViewModel) {
     val navigationController = rememberNavController()
-    val context = LocalContext.current.applicationContext
+//    val context = LocalContext.current.applicationContext
     val selected = remember { mutableStateOf(Icons.Default.Home) }
 
 
@@ -326,7 +354,7 @@ fun MyBottomAppBar() {
             modifier = Modifier.padding(paddingValues)
         ) {
             composable(Screens.Home.screen) {
-                Home()
+                Home(startRecording = { audioViewModel.startRecording() }, stopRecording = {audioViewModel.stopRecording()})
             }
             composable(Screens.Search.screen) {
                 Search()
@@ -345,6 +373,7 @@ fun MyBottomAppBar() {
 @Composable
 fun DefaultPreview() {
     SoundMeterNewTheme {
-        MyBottomAppBar()
+//        MyBottomAppBar()
     }
 }
+
