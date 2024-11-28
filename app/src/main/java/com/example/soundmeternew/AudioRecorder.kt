@@ -13,6 +13,8 @@ class AudioRecorder(
     private val recordingDao: DAO.RecordingDao
 ) {
 
+
+
     private var mediaRecorder: MediaRecorder? = null
     private var audioFile: File? = null
     private var isRecording = false

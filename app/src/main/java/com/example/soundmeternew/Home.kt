@@ -18,7 +18,10 @@ import androidx.compose.ui.unit.sp
 //import com.github.tehras.charts.line.renderer.yaxis.YAxisRenderer
 
 @Composable
-fun Home(modifier: Modifier = Modifier) {
+fun Home(
+    modifier: Modifier = Modifier,
+    startRecording: ()-> Unit,
+    stopRecording: ()-> Unit) {
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -52,6 +55,7 @@ fun Home(modifier: Modifier = Modifier) {
             ) {
                 Button(onClick = {
                     Log.d("RecordButton", "Recording started...")
+                    startRecording()
                 },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFFD32F2F),    // Set the background color of the button
@@ -77,6 +81,7 @@ fun Home(modifier: Modifier = Modifier) {
             )
 
             Button(onClick = {
+                stopRecording()
                 Log.d("ResumeButton", "Recording resumed.")
             },
                 colors = ButtonDefaults.buttonColors(
@@ -111,5 +116,5 @@ fun Home(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun HomePreview() {
-    Home()
+//    Home()
 }
