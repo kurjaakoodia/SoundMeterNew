@@ -7,8 +7,8 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
 import androidx.core.content.ContextCompat
-import kotlin.math.log10
-import kotlin.math.sqrt
+//import kotlin.math.log10
+//import kotlin.math.sqrt
 
 class Audio(private val context: Context) {
 
@@ -19,8 +19,8 @@ class Audio(private val context: Context) {
         const val AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT
     }
 
-    private var audioRecord: AudioRecord? = null
-    private var bufferSize = AudioRecord.getMinBufferSize(
+    var audioRecord: AudioRecord? = null
+    var bufferSize = AudioRecord.getMinBufferSize(
         RECORDER_SAMPLE_RATE,
         CHANNEL_CONFIG,
         AUDIO_FORMAT
@@ -78,44 +78,13 @@ class Audio(private val context: Context) {
 
 
 
-    // Start recording audio
-    fun startRecording() {
 
 
-        audioRecord?.startRecording()
-        isRecording = true
-
-        startLoudnessLogging()
-        Log.i("TAG", "startRecording: Started")
-    }
-    private fun startLoudnessLogging() {
-        Thread {
-            val buffer = ShortArray(bufferSize)
-            while (isRecording) {
-                val readSize = audioRecord?.read(buffer, 0, buffer.size, AudioRecord.READ_BLOCKING) ?: 0
-                if (readSize > 0) {
-                    val rms = calculateRMS(buffer, readSize)
-                    val decibels = 20 * log10(rms)
-                    Log.d("AudioLoudness", "Loudness: $decibels dB")
-                } else {
-                    Log.e("AudioRecord", "Failed to read data. Read size: $readSize")
-                }
-            }
-        }.start()
-    }
-
-    private fun calculateRMS(buffer: ShortArray, readSize: Int): Double {
-        var sum = 0.0
-        for (i in 0 until readSize) {
-            sum += buffer[i] * buffer[i] // Square each sample
-        }
-        return sqrt(sum / readSize) // Return the RMS
-    }
 
 
-    fun getMetrics(): String{
-        return audioRecord?.sampleRate.toString()
-    }
+//    fun getMetrics(): String{
+//        return audioRecord?.sampleRate.toString()
+//    }
 
     // Stop recording audio
     fun stopRecording() {
