@@ -13,6 +13,11 @@ This project was made by Group 2 as part of the Mobilde Development course ar Et
 
 ## Getting Started
 
+To use the app, first grant permission for microphone access. Once access is granted, press the record button to view a real-time analysis of ambient sound levels.
+
+- Dicsionary page: A refrence that allows you to ceck what the noise level represents 
+- History page: Saved measurments can be found here 
+
 ## Technology Stack
 
 ## Parts of the Code
