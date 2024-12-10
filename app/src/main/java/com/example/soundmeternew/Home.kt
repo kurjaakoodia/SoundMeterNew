@@ -1,11 +1,16 @@
 package com.example.soundmeternew
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,13 +22,20 @@ import androidx.compose.ui.unit.sp
 //import com.github.tehras.charts.line.LineChart
 //import com.github.tehras.charts.line.renderer.yaxis.YAxisRenderer
 
+@SuppressLint("DefaultLocale")
 @Composable
 fun Home(
     modifier: Modifier = Modifier,
     startRecording: ()-> Unit,
-    stopRecording: ()-> Unit) {
+    stopRecording: ()-> Unit,
+    resumeRecording: () -> Unit,
+    pauseRecording: () -> Unit,
+    audioViewModel: AudioViewModel
+) {
 
     Box(modifier = Modifier.fillMaxSize()) {
+        val decibelLevel by audioViewModel.dbMeasurement.collectAsState(initial = 0.0)
+val maxMeasurement by audioViewModel.maxMeasurement.collectAsState(initial = 0.0)
         Column(
             modifier = modifier
                 .fillMaxSize()
@@ -74,7 +86,13 @@ fun Home(
             Spacer(modifier = Modifier.height(32.dp))
 
             Text(
-                text = "Generating Data...",
+                text = "Loudness: ${String.format("%.2f", decibelLevel)} dB",
+                fontSize = 14.sp,
+                color = Color.Gray,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            Text(
+                text = "Max: ${String.format("%.2f", maxMeasurement)} dB",
                 fontSize = 14.sp,
                 color = Color.Gray,
                 modifier = Modifier.padding(bottom = 8.dp)
@@ -82,6 +100,40 @@ fun Home(
 
             Button(onClick = {
                 stopRecording()
+                Log.d("StopButton", "Recording Stop.")
+            },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Blue,    // Set the background color of the button
+                    contentColor = Color.White      // Set the text color (content) of the button
+                )
+            ) {
+                Text(
+                    text = "Stop",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                )
+            }
+
+            Button(onClick = {
+                pauseRecording()
+                Log.d("PauseButton", "Recording Paused.")
+            },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Blue,    // Set the background color of the button
+                    contentColor = Color.White      // Set the text color (content) of the button
+                )
+            ) {
+                Text(
+                    text = "Pause",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                )
+            }
+
+            Button(onClick = {
+                resumeRecording()
                 Log.d("ResumeButton", "Recording resumed.")
             },
                 colors = ButtonDefaults.buttonColors(
@@ -90,13 +142,12 @@ fun Home(
                 )
             ) {
                 Text(
-                    text = "Resume",
+                    text = "resume",
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White,
                 )
             }
-
             // Placeholder for the line chart
 //            LineChart(
 //                lines = listOf(

@@ -214,13 +214,18 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val outputDirectory = getExternalFilesDir(null) ?: filesDir
+
         // Initialize the Audio class
         audio = Audio(this)
-audio.initialize()
+audio.initialize(outputDirectory)
         enableEdgeToEdge()
         setContent {
             SoundMeterNewTheme {
-                val audioViewModel = AudioViewModel(audio)
+//                val database = AppDatabase.getDatabase(this)
+                val audioViewModel = AudioViewModel(audio,
+//                    database.recordingDao()
+                )
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -353,7 +358,11 @@ fun MyBottomAppBar(audioViewModel: AudioViewModel) {
             modifier = Modifier.padding(paddingValues)
         ) {
             composable(Screens.Home.screen) {
-                Home(startRecording = { audioViewModel.startRecording() }, stopRecording = {audioViewModel.stopRecording()})
+                Home(startRecording = { audioViewModel.startRecording() },
+                    stopRecording = {audioViewModel.stopRecording()},
+                    resumeRecording = {audioViewModel.resumeRecording()},
+                    pauseRecording = {audioViewModel.pauseRecording()},
+                    audioViewModel = audioViewModel)
             }
             composable(Screens.Search.screen) {
                 Search()

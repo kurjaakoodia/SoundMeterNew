@@ -7,8 +7,11 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
 import androidx.core.content.ContextCompat
-//import kotlin.math.log10
-//import kotlin.math.sqrt
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.nio.ByteBuffer
+import com.example.soundmeternew.Recording
 
 class Audio(private val context: Context) {
 
@@ -25,15 +28,16 @@ class Audio(private val context: Context) {
         CHANNEL_CONFIG,
         AUDIO_FORMAT
     )
-
-
-    private var isRecording = false
-
+    private var isPaused = false
+    private var outputFile: File? = null
+    private var maxMeasurement = 0.0
 
     // Function to initialize the AudioRecord object
-    fun initialize(): Boolean {
+    fun initialize(outputDirectory: File): Boolean {
         audioRecord = getSupportedAudioRecord()
             ?: throw IllegalStateException("AudioRecord initialization failed.")
+        outputFile = File(outputDirectory, "recording_${System.currentTimeMillis()}.pcm")
+
         return true
     }
 
@@ -77,24 +81,93 @@ class Audio(private val context: Context) {
     }
 
 
+    fun saveAudio(buffer: ShortArray, readSize: Int) {
+        if (outputFile == null || isPaused) return
+        try {
+            FileOutputStream(outputFile, true).use { outputStream ->
+                val byteBuffer = ByteArray(readSize * 2)
+                for (i in 0 until readSize) {
+                    byteBuffer[i * 2] = (buffer[i].toInt() and 0xFF).toByte()
+                    byteBuffer[i * 2 + 1] = (buffer[i].toInt() shr 8).toByte()
+                }
+                outputStream.write(byteBuffer)
+            }
+        } catch (e: IOException) {
+            Log.e("Audio", "Error writing to file: ${e.message}")
+        }
+    }
 
+    fun savePartialRecording() {
+        if (audioRecord == null) {
+            Log.e("Audio", "AudioRecord is null. Cannot save partial recording.")
+            return
+        }
 
+        val buffer = ShortArray(bufferSize)
+        val readSize = audioRecord?.read(buffer, 0, buffer.size) ?: 0
+        if (readSize > 0) {
+            val byteArray = ShortArrayToByteArray(buffer, readSize)
+            try {
+                val fos = FileOutputStream(outputFile, true) // Append to the file
+                fos.write(byteArray)
+                fos.close()
+                Log.i("Audio", "Partial recording saved.")
+            } catch (e: Exception) {
+                Log.e("Audio", "Failed to save partial recording: ${e.message}")
+            }
+        }
+    }
 
+    private fun ShortArrayToByteArray(buffer: ShortArray, readSize: Int): ByteArray {
+        val byteBuffer = ByteBuffer.allocate(readSize * 2) // 2 bytes per short
+        for (i in 0 until readSize) {
+            byteBuffer.putShort(buffer[i])
+        }
+        return byteBuffer.array()
+    }
 
+    fun getAudioDetails(): Recording?{
+        val outputFile = getOutputFile()
+        return if(outputFile != null && outputFile.exists()){
+            getOutputFile()?.let {
+                Recording(
+                    filePath = it.absolutePath,
+                    timestamp = System.currentTimeMillis(),
+                    maxMeasurement = maxMeasurement
+                )
+            }
+        }else {
+            null
+        }
+    }
 
-//    fun getMetrics(): String{
-//        return audioRecord?.sampleRate.toString()
-//    }
+    // Pause recording
+    fun pauseRecording() {
+        isPaused = true
+    }
+
+    // Resume recording
+    fun resumeRecording() {
+        isPaused = false
+    }
 
     // Stop recording audio
     fun stopRecording() {
         audioRecord?.stop()
-        isRecording = false
-
     }
 
     // Release the AudioRecord object
     fun release() {
         audioRecord?.release()
     }
+
+    fun setMax(max: Double){
+        maxMeasurement = max
+    }
+
+
+    fun isRecordingPaused(): Boolean = isPaused
+
+    fun getOutputFile(): File? = outputFile
+
 }
