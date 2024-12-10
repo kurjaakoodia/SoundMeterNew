@@ -8,9 +8,6 @@ Whether you're tracking sound levels in a specific environment or monitoring noi
 
 # Application Overview
 
-## Who We Are
-This project was made by Group 2 as part of the Mobilde Development course ar Etropolia University of Applied sciences.
-
 ## Getting Started
 
 To use the app, first grant permission for microphone access. Once access is granted, press the record button to view a real-time analysis of ambient sound levels.
