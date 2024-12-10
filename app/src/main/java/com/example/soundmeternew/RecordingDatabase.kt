@@ -4,11 +4,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-class RecordingDatabase {
 
     @Database(entities = [Recording::class], version = 1, exportSchema = false)
     abstract class AppDatabase : RoomDatabase() {
-        abstract fun recordingDao(): DAO.RecordingDao
+        abstract fun recordingDao(): RecordingDao
 
         companion object {
             @Volatile
@@ -27,4 +26,3 @@ class RecordingDatabase {
             }
         }
     }
-}

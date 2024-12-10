@@ -10,7 +10,7 @@ import java.io.IOException
 
 class AudioRecorder(
     private val context: Context,
-    private val recordingDao: DAO.RecordingDao
+    private val recordingDao: RecordingDao
 ) {
 
 
@@ -57,12 +57,12 @@ class AudioRecorder(
                 val duration = System.currentTimeMillis() - startTime
 
                 // Save file path and metadata to the Room DB
-                val recording = Recording.Recording(
-                    filePath = audioFile?.absolutePath ?: "",
-                    timestamp = startTime,
-                    duration = duration
-                )
-                recordingDao.insertRecording(recording)
+//                val recording = Recording(
+//                    filePath = audioFile?.absolutePath ?: "",
+//                    timestamp = startTime,
+//                    duration = duration
+//                )
+//                recordingDao.insertRecording(recording)
             } catch (e: IllegalStateException) {
                 Log.e("AudioRecorder", "Failed to stop MediaRecorder", e)
             } finally {

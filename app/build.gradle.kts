@@ -55,7 +55,7 @@ dependencies {
     // Room components
     annotationProcessor("androidx.room:room-compiler:2.6.1")
     implementation ("androidx.room:room-runtime:2.6.1")
-    implementation ("com.google.devtools.ksp:symbol-processing-api:1.9.0-1.0.13")
+    implementation ("com.google.devtools.ksp:symbol-processing-api:2.0.20-1.0.25")
     implementation ("androidx.room:room-ktx:2.6.1")
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
