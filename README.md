@@ -18,3 +18,8 @@ To use the app, first grant permission for microphone access. Once access is gra
 ## Technology Stack
 
 ## Parts of the Code
+
+## How to Generate 
+
+Change the premission in the app settings itself if crached 
+
