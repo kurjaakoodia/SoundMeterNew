@@ -75,6 +75,10 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
+    // Extended Icons
+    implementation("androidx.compose.material:material-icons-core:<version>")
+    implementation("androidx.compose.material:material-icons-extended:<version>")
+
     // Speedometer library
     implementation("com.github.anastr:speedometer-android:1.0.0-ALPHA02")
 }

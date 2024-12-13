@@ -168,7 +168,6 @@ package com.example.soundmeternew
 import android.graphics.Color.rgb
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -177,6 +176,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Campaign
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
@@ -196,14 +196,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.soundmeternew.ui.theme.SoundMeterNewTheme
 import com.example.soundmeternew.ui.theme.Red40
+import com.example.soundmeternew.ui.theme.SoundMeterNewTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -218,12 +218,13 @@ class MainActivity : ComponentActivity() {
 
         // Initialize the Audio class
         audio = Audio(this)
-audio.initialize(outputDirectory)
+        audio.initialize(outputDirectory)
         enableEdgeToEdge()
         setContent {
             SoundMeterNewTheme {
 //                val database = AppDatabase.getDatabase(this)
-                val audioViewModel = AudioViewModel(audio,
+                val audioViewModel = AudioViewModel(
+                    audio,
 //                    database.recordingDao()
                 )
                 Surface(
@@ -235,7 +236,8 @@ audio.initialize(outputDirectory)
             }
         }
     }
-//    private fun stopRecording() {
+
+    //    private fun stopRecording() {
 //        audio.stopRecording()
 //        Log.i("TAG", "stopRecording:Happened ")
 //        isRecording = false
@@ -245,8 +247,7 @@ audio.initialize(outputDirectory)
         audio.release()
     }
 
-                }
-
+}
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -263,14 +264,20 @@ fun MyBottomAppBar(audioViewModel: AudioViewModel) {
                 navigationIcon = {
                     IconButton(onClick = {}) {
                         Icon(
-                            imageVector = Icons.Default.Menu,
+                            imageVector = Icons.Default.Campaign,
                             contentDescription = "Menu Icon"
                         )
                     }
                 },
                 title = {
-                    Text("Sound Meter")
-                },
+                    Text(
+                        text = "Sound Meter",
+                        fontFamily = FontFamily.Monospace,
+                        fontSize = 20.dp, // Optional: Adjust the font size
+                        color = Color.Black // Optional: Set the text color
+                    )
+                }
+                ,
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color(rgb(154, 9, 14)),
 
@@ -358,11 +365,13 @@ fun MyBottomAppBar(audioViewModel: AudioViewModel) {
             modifier = Modifier.padding(paddingValues)
         ) {
             composable(Screens.Home.screen) {
-                Home(startRecording = { audioViewModel.startRecording() },
-                    stopRecording = {audioViewModel.stopRecording()},
-                    resumeRecording = {audioViewModel.resumeRecording()},
-                    pauseRecording = {audioViewModel.pauseRecording()},
-                    audioViewModel = audioViewModel)
+                Home(
+                    startRecording = { audioViewModel.startRecording() },
+                    stopRecording = { audioViewModel.stopRecording() },
+                    resumeRecording = { audioViewModel.resumeRecording() },
+                    pauseRecording = { audioViewModel.pauseRecording() },
+                    audioViewModel = audioViewModel
+                )
             }
             composable(Screens.Search.screen) {
                 Search()
