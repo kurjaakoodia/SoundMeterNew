@@ -53,20 +53,20 @@ fun Dictionary(modifier: Modifier = Modifier) {
         )
 
         val colors = listOf(
-            Triple(Color(0xFFD32F2F), "140 dB", "Gunshot"),
-            Triple(Color(0xFFFF7043), "130 dB", "Jackhammer"),
-            Triple(Color(0xFFFFEB3B), "120 dB", "Ambulance Siren"),
-            Triple(Color(0xFF66BB6A), "110 dB", "Concert"),
-            Triple(Color(0xFF42A5F5), "100 dB", "Motorcycle"),
-            Triple(Color(0xFF9C27B0), "90 dB", "Subway"),
-            Triple(Color(0xFF673AB7), "80 dB", "Alarm Clock"),
-            Triple(Color(0xFF3F51B5), "70 dB", "Vacuum Cleaner"),
-            Triple(Color(0xFF2196F3), "60 dB", "Normal Conversation"),
+            Triple(Color(0xFFB71C1C), "140 dB", "Gunshot"),
+            Triple(Color(0xFFEF6C00), "130 dB", "Jackhammer"),
+            Triple(Color(0xFFFFC107), "120 dB", "Ambulance Siren"),
+            Triple(Color(0xFF8BC34A), "110 dB", "Concert"),
+            Triple(Color(0xFF4CAF50), "100 dB", "Motorcycle"),
+            Triple(Color(0xFF009688), "90 dB", "Subway"),
+            Triple(Color(0xFF2196F3), "80 dB", "Alarm Clock"),
+            Triple(Color(0xFF03A9F4), "70 dB", "Vacuum Cleaner"),
+            Triple(Color(0xFF03A9F4), "60 dB", "Normal Conversation"),
             Triple(Color(0xFF00BCD4), "50 dB", "Refrigerator"),
-            Triple(Color(0xFF009688), "40 dB", "Library"),
-            Triple(Color(0xFF4CAF50), "30 dB", "Whisper"),
-            Triple(Color(0xFF8BC34A), "20 dB", "Clock Ticking"),
-            Triple(Color(0xFFCDDC39), "10 dB", "Breathing")
+            Triple(Color(0xFF81D4FA), "40 dB", "Library"),
+            Triple(Color(0xFFA5D6A7), "30 dB", "Whisper"),
+            Triple(Color(0xFFB1E6B3), "20 dB", "Clock Ticking"),
+            Triple(Color(0xFFBCFFBD), "10 dB", "Breathing")
         )
 
         colors.forEach { (color, label, description) ->

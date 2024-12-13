@@ -175,6 +175,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Campaign
 import androidx.compose.material.icons.filled.Home
@@ -197,6 +198,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
@@ -263,6 +265,8 @@ fun MyBottomAppBar(audioViewModel: AudioViewModel) {
     Scaffold(
         topBar = {
             TopAppBar(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(15.dp)),
                 navigationIcon = {
                     IconButton(onClick = {}) {
                         Icon(
@@ -277,15 +281,16 @@ fun MyBottomAppBar(audioViewModel: AudioViewModel) {
                     )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(rgb(154, 9, 14)),
-
-                    )
+                    containerColor = Color(0xFFBA321C)
+                )
             )
         },
 
         bottomBar = {
             BottomAppBar(
-                containerColor = Red40
+                containerColor = Color(0xFFBA321C),
+                modifier = Modifier
+                    .clip(RoundedCornerShape(15.dp))
             ) {
                 IconButton(
                     onClick = {
@@ -300,7 +305,7 @@ fun MyBottomAppBar(audioViewModel: AudioViewModel) {
                         Icons.Default.Home,
                         contentDescription = null,
                         modifier = Modifier.size(24.dp),
-                        tint = if (selected.value == Icons.Default.Home) Color.White else Color.DarkGray
+                        tint = if (selected.value == Icons.Default.Home) Color.White else Color.Black
                     )
                 }
 
@@ -334,7 +339,7 @@ fun MyBottomAppBar(audioViewModel: AudioViewModel) {
                         Icons.Default.ImportContacts,
                         contentDescription = null,
                         modifier = Modifier.size(24.dp),
-                        tint = if (selected.value == Icons.Default.ImportContacts) Color.White else Color.DarkGray
+                        tint = if (selected.value == Icons.Default.ImportContacts) Color.White else Color.Black
                     )
                 }
 
@@ -351,7 +356,7 @@ fun MyBottomAppBar(audioViewModel: AudioViewModel) {
                         Icons.Default.Save,
                         contentDescription = null,
                         modifier = Modifier.size(24.dp),
-                        tint = if (selected.value == Icons.Default.Save) Color.White else Color.DarkGray
+                        tint = if (selected.value == Icons.Default.Save) Color.White else Color.Black
                     )
                 }
             }
