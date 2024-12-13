@@ -31,6 +31,12 @@ Follow the steps below to grant the necessary permissions for the app to functio
 
 ## Technology Stack
 
+SoundMeter is a native android application;
+
+- **Kotlin** for building the project backene
+- **Room** the biult in android database
+- **Jetpack compose** and Material design for the UI
+
 ## Parts of the Code
 
 
