@@ -3,11 +3,18 @@ package com.example.soundmeternew
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -18,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.github.anastr.speedometer.SpeedView
 
 //import com.github.tehras.charts.line.LineChart
 //import com.github.tehras.charts.line.renderer.yaxis.YAxisRenderer
@@ -26,8 +34,8 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun Home(
     modifier: Modifier = Modifier,
-    startRecording: ()-> Unit,
-    stopRecording: ()-> Unit,
+    startRecording: () -> Unit,
+    stopRecording: () -> Unit,
     resumeRecording: () -> Unit,
     pauseRecording: () -> Unit,
     audioViewModel: AudioViewModel
@@ -35,29 +43,23 @@ fun Home(
 
     Box(modifier = Modifier.fillMaxSize()) {
         val decibelLevel by audioViewModel.dbMeasurement.collectAsState(initial = 0.0)
-val maxMeasurement by audioViewModel.maxMeasurement.collectAsState(initial = 0.0)
+        val maxMeasurement by audioViewModel.maxMeasurement.collectAsState(initial = 0.0)
         Column(
             modifier = modifier
                 .fillMaxSize()
                 .wrapContentSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "Sound Meter",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color(0xFF7CB342), // Green text
-                modifier = Modifier.padding(top = 16.dp)
+
+            SpeedView(
+                modifier = Modifier.size(250.dp),
+                speed = 50f,
+                maxSpeed = 150.0f,
+                unit = "dB"
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Text(
-                text = "🔷 Round Button/false",
-                fontSize = 16.sp,
-                color = Color(0xFF673AB7), // Purple text
-                modifier = Modifier.padding(8.dp)
-            )
 
             Box(
                 contentAlignment = Alignment.Center,
@@ -65,10 +67,11 @@ val maxMeasurement by audioViewModel.maxMeasurement.collectAsState(initial = 0.0
                     .size(120.dp)
                     .background(Color(0xFFD32F2F), shape = CircleShape) // Red circle button
             ) {
-                Button(onClick = {
-                    Log.d("RecordButton", "Recording started...")
-                    startRecording()
-                },
+                Button(
+                    onClick = {
+                        Log.d("RecordButton", "Recording started...")
+                        startRecording()
+                    },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFFD32F2F),    // Set the background color of the button
                         contentColor = Color.White      // Set the text color (content) of the button
@@ -98,10 +101,11 @@ val maxMeasurement by audioViewModel.maxMeasurement.collectAsState(initial = 0.0
                 modifier = Modifier.padding(bottom = 8.dp)
             )
 
-            Button(onClick = {
-                stopRecording()
-                Log.d("StopButton", "Recording Stop.")
-            },
+            Button(
+                onClick = {
+                    stopRecording()
+                    Log.d("StopButton", "Recording Stop.")
+                },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Blue,    // Set the background color of the button
                     contentColor = Color.White      // Set the text color (content) of the button
@@ -115,10 +119,11 @@ val maxMeasurement by audioViewModel.maxMeasurement.collectAsState(initial = 0.0
                 )
             }
 
-            Button(onClick = {
-                pauseRecording()
-                Log.d("PauseButton", "Recording Paused.")
-            },
+            Button(
+                onClick = {
+                    pauseRecording()
+                    Log.d("PauseButton", "Recording Paused.")
+                },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Blue,    // Set the background color of the button
                     contentColor = Color.White      // Set the text color (content) of the button
@@ -132,10 +137,11 @@ val maxMeasurement by audioViewModel.maxMeasurement.collectAsState(initial = 0.0
                 )
             }
 
-            Button(onClick = {
-                resumeRecording()
-                Log.d("ResumeButton", "Recording resumed.")
-            },
+            Button(
+                onClick = {
+                    resumeRecording()
+                    Log.d("ResumeButton", "Recording resumed.")
+                },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Blue,    // Set the background color of the button
                     contentColor = Color.White      // Set the text color (content) of the button
@@ -167,5 +173,5 @@ val maxMeasurement by audioViewModel.maxMeasurement.collectAsState(initial = 0.0
 @Preview(showBackground = true)
 @Composable
 fun HomePreview() {
- //  Home()
+    //  Home()
 }

@@ -74,4 +74,7 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // Speedometer library
+    implementation("com.github.anastr:speedometer-android:1.0.0-ALPHA02")
 }
