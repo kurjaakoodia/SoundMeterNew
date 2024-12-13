@@ -178,8 +178,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Campaign
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.ImportContacts
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -271,13 +273,9 @@ fun MyBottomAppBar(audioViewModel: AudioViewModel) {
                 },
                 title = {
                     Text(
-                        text = "Sound Meter",
-                        fontFamily = FontFamily.Monospace,
-                        fontSize = 20.dp, // Optional: Adjust the font size
-                        color = Color.Black // Optional: Set the text color
+                        text = "Sound Meter"
                     )
-                }
-                ,
+                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color(rgb(154, 9, 14)),
 
@@ -302,30 +300,30 @@ fun MyBottomAppBar(audioViewModel: AudioViewModel) {
                         Icons.Default.Home,
                         contentDescription = null,
                         modifier = Modifier.size(24.dp),
-                        tint = if (selected.value == Icons.Default.Home) Color.White else Color.Gray
+                        tint = if (selected.value == Icons.Default.Home) Color.White else Color.DarkGray
                     )
                 }
 
-                IconButton(
-                    onClick = {
-                        selected.value = Icons.Default.Search
-                        navigationController.navigate(Screens.Search.screen) {
-                            popUpTo(0)
-                        }
-                    },
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Icon(
-                        Icons.Default.Search,
-                        contentDescription = null,
-                        modifier = Modifier.size(24.dp),
-                        tint = if (selected.value == Icons.Default.Search) Color.White else Color.Gray
-                    )
-                }
+//                IconButton(
+//                    onClick = {
+//                        selected.value = Icons.Default.Search
+//                        navigationController.navigate(Screens.Search.screen) {
+//                            popUpTo(0)
+//                        }
+//                    },
+//                    modifier = Modifier.weight(1f)
+//                ) {
+//                    Icon(
+//                        Icons.Default.Search,
+//                        contentDescription = null,
+//                        modifier = Modifier.size(24.dp),
+//                        tint = if (selected.value == Icons.Default.Search) Color.White else Color.Gray
+//                    )
+//                }
 
                 IconButton(
                     onClick = {
-                        selected.value = Icons.Default.Info
+                        selected.value = Icons.Default.ImportContacts
                         navigationController.navigate(Screens.Dictionary.screen) {
                             popUpTo(0)
                         }
@@ -333,16 +331,16 @@ fun MyBottomAppBar(audioViewModel: AudioViewModel) {
                     modifier = Modifier.weight(1f)
                 ) {
                     Icon(
-                        Icons.Default.Info,
+                        Icons.Default.ImportContacts,
                         contentDescription = null,
                         modifier = Modifier.size(24.dp),
-                        tint = if (selected.value == Icons.Default.Info) Color.White else Color.Gray
+                        tint = if (selected.value == Icons.Default.ImportContacts) Color.White else Color.DarkGray
                     )
                 }
 
                 IconButton(
                     onClick = {
-                        selected.value = Icons.Default.Menu
+                        selected.value = Icons.Default.Save
                         navigationController.navigate(Screens.Records.screen) {
                             popUpTo(0)
                         }
@@ -350,10 +348,10 @@ fun MyBottomAppBar(audioViewModel: AudioViewModel) {
                     modifier = Modifier.weight(1f)
                 ) {
                     Icon(
-                        Icons.Default.Menu,
+                        Icons.Default.Save,
                         contentDescription = null,
                         modifier = Modifier.size(24.dp),
-                        tint = if (selected.value == Icons.Default.Menu) Color.White else Color.Gray
+                        tint = if (selected.value == Icons.Default.Save) Color.White else Color.DarkGray
                     )
                 }
             }
