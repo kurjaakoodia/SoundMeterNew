@@ -39,4 +39,10 @@ SoundMeter is a native android application;
 
 ## Parts of the Code
 
+### Main Page
+![Screenshot of the Home page](Screenshots/Screenshot 2024-12-13 101957.png)
+
+### Refernce Chart
+![Screenshot of the Home page](Screenshots/Screenshot 2024-12-13 102232.png)
+
 
